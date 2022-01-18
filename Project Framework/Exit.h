@@ -3,9 +3,9 @@
 
 class Exit : public Action
 {
-	bool Sound;
+
 public:
-	Exit(ApplicationManager* pApp, bool);
+	Exit(ApplicationManager* pApp);
 
 	//Reads ellipse parameters
 	virtual void ReadActionParameters();

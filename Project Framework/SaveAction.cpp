@@ -13,18 +13,19 @@ SaveAction::SaveAction(ApplicationManager* pApp, int FigCount) : Action(pApp)
 
 void SaveAction::ReadActionParameters()
 {
-	Output* pOut = pManager->GetOutput();   //Pointer to Output
-	Input* pIn = pManager->GetInput();      //Pointer to Input
-
-	pOut->PrintMessage("Please write the file name then press ENTER");
-	FileName = pIn->GetSrting(pOut);  //read the file name
+	//Output* pOut = pManager->GetOutput();   //Pointer to Output
+	//Input* pIn = pManager->GetInput();      //Pointer to Input
+	
+	GUI* pGUI = pManager->GetGUI();
+	pGUI->ClearStatusBar();
+	pGUI->PrintMessage("Please write the file name then press ENTER");
+	FileName = pGUI->GetSrting();  //read the file name
 }
 
 void SaveAction::Execute()
 {
 	ReadActionParameters();     //get the parameters
-	Output* pOut = pManager->GetOutput();
-	Input* pIn = pManager->GetInput();
+	GUI* pGUI = pManager->GetGUI();
 	ofstream OutFile;   //object of ofstream to write on the disk
 	OutFile.open(FileName + ".txt");  // create a file with FileName and .txt exetention
 	bool flag = false;
@@ -32,8 +33,9 @@ void SaveAction::Execute()
 		flag = true;
 	while (flag)
 	{
-		pOut->PrintMessage("Please write a valid name then press ENTER");
-		FileName = pIn->GetSrting(pOut);
+		pGUI->ClearStatusBar();
+		pGUI->PrintMessage("Please write a valid name then press ENTER");
+		FileName = pGUI->GetSrting();
 		OutFile.open(FileName + ".txt");
 		if (OutFile.good())
 			flag = false;
@@ -43,7 +45,9 @@ void SaveAction::Execute()
 	pManager->SaveFig(OutFile);  //Now Start Saving each figure proccess 
 	pManager->set_LastMessage("Graph SAVED");  //Done!
 	OutFile.close(); //Good By :)
+	pGUI->PrintMessage("Saved !");
 }
+
 void SaveAction::SavePlayMode()
 {
 	FileName = "PlayMode";
@@ -54,6 +58,7 @@ void SaveAction::SavePlayMode()
 	pManager->SaveFig(OutFile);  //Now Start Saving each figure proccess 
 	OutFile.close(); //Good By :)
 }
+
 
 
 

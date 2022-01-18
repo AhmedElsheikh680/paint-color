@@ -6,6 +6,8 @@
 #include "GUI\Output.h"
 #include "GUI\Input.h"
 #include "GUI\UI_Info.h"
+#include "Exit.h"
+#include "SaveAction.h"
 
 class Action;	//Forward Declaration
 

@@ -41,6 +41,7 @@ void ApplicationManager::Run()
 //								Actions Related Functions							//
 //==================================================================================//
 //Creates an action
+
 Action* ApplicationManager::CreateAction(ActionType ActType) 
 {
 	Action* newAct = NULL;
@@ -59,11 +60,15 @@ Action* ApplicationManager::CreateAction(ActionType ActType)
 
 		case EXIT:
 			///create ExitAction here
-			
+			newAct = new Exit(this);
 			break;
 		
 		case STATUS:	//a click on the status bar ==> no action
 			return NULL;
+			break;
+
+		case SAVE:
+			newAct = new SaveAction(this, FigCount);
 			break;
 	}	
 	return newAct;
@@ -75,7 +80,7 @@ void ApplicationManager::ExecuteAction(Action* &pAct)
 	//Execute the created action
 	if(pAct != NULL)
 	{
-		pAct->Execute();//Execute
+		pAct->Execute(); //Execute
 		delete pAct;	//Action is not needed any more ==> delete it
 		pAct = NULL;
 	}

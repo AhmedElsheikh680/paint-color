@@ -4,19 +4,21 @@
 #include "GUI\Output.h"
 #include "SaveAction.h"
 
-Exit::Exit(ApplicationManager* pApp, bool sound) : Action(pApp), Sound(sound)
-{}
+Exit::Exit(ApplicationManager* pApp) : Action(pApp)
+{
+	//this->Execute();
+}
 
 void Exit::ReadActionParameters()
 {}
 
 void Exit::Execute()
 {
-	Output* pOut = pManager->GetOutput();
-	Input* pIn = pManager->GetInput();
-
-	pOut->PrintMessage("Sure? You want to save your graph befor exit? if yes then write Y or any key to exit");
-	string s = pIn->GetSrting(pOut);
+	
+	GUI* pGUI = pManager->GetGUI();
+	pGUI->ClearStatusBar();
+	pGUI->PrintMessage("Sure? You want to save your graph befor exit? if yes then write Y or any key to exit");
+	string s = pGUI->GetSrting();
 	if (s == "Y" || s == "y")
 	{
 		ActionType newAct = SAVE;
